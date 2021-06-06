@@ -1,8 +1,8 @@
-class Nodo():
+class Nodo(object):
 
-    def __init__(self, nombre, apellido, telefono):
+    def __init__(self, nombre = None, apellido = None, telefono = None, siguiente = None, anterior = None):
         self.nombre = nombre
         self.apellido = apellido
         self.telefono = telefono
-        self.siguiente = None
-        self.anterior = None
+        self.siguiente = siguiente
+        self.anterior = anterior

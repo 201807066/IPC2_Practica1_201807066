@@ -21,11 +21,12 @@ def menuPrincipal():
             menuPrincipal()
             break
         elif opc == "2":
-            funciones.mostrarContacto()
+            funciones.buscar()
             menuPrincipal()
             break
         elif opc == "3":
-            pass
+            funciones.visualizarAgenda()
+            menuPrincipal()
             break
         elif opc == "4":
             cls()
