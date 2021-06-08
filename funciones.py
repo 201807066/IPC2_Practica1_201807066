@@ -20,7 +20,7 @@ def nuevoContacto():
         time.sleep(1)
         nuevoContacto()
     else:
-        lista.agregar(nombre, apellido, telefono)
+        lista.agregar(nombre.capitalize(), apellido.capitalize(), telefono)
 
 #Busqueda de contacto por medio del numero
 def buscar():
@@ -44,6 +44,6 @@ def visualizarAgenda():
     else:
         lista.mostrar()
         lista.Size()
-        ListaDoble.imagen_dot()
+        ListaDoble.imagen_dot(lista)
         input()
 
