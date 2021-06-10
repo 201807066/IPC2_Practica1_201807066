@@ -15,12 +15,18 @@ def nuevoContacto():
     apellido = input("Ingrese apellido: ")
     telefono = input("Ingrese número de teléfono: ")
 
-    if len(telefono) >= 9:
-        print("La cantidad de números es incorrecto")
+    if nombre == "" or apellido == "":
+        print("No es un nombre valido")
         time.sleep(1)
         nuevoContacto()
     else:
-        lista.agregar(nombre.capitalize(), apellido.capitalize(), telefono)
+        if len(telefono) == 8:
+            lista.agregar(nombre.capitalize(), apellido.capitalize(), telefono)
+        else:
+            print("La cantidad de números no corresponde a un número telefónico valido...")
+            time.sleep(1)
+            nuevoContacto()
+        
 
 #Busqueda de contacto por medio del numero
 def buscar():
@@ -31,9 +37,29 @@ def buscar():
         print("No hay contactos agregados")
         time.sleep(1)
     else:
-        lista.buscar_numero()
-        input()
-    
+        telefono = input("Ingrese el número por buscar: ")
+        if len(telefono) == 8:
+            if lista.buscar_numero(telefono) == True:
+                print("Muestra el contacto")
+            else:
+                x = input("¿Desea agregarlo? Si/No: ")
+                if x.lower() == "si":
+                    cls()
+                    print("********** Nuevo Contacto **********\n")
+                    print("Número de teléfono: " + telefono)
+                    nombre = input("\nIngrese nombre: ")
+                    apellido = input("Ingrese apellido: ")
+                    print("Número de teléfono: " + telefono)
+            
+                    lista.agregar(nombre.capitalize(), apellido.capitalize(), telefono)
+                else:
+                    pass
+        else:
+            print("La cantidad de números no corresponde a un número telefónico valido...")
+            time.sleep(1)
+            buscar()
+
+
 #Metodo para generar imagen
 def visualizarAgenda():
     cls()
@@ -42,7 +68,6 @@ def visualizarAgenda():
         print("Para generar una grafica debe agregar un nuevo contacto...\n")
         time.sleep(1.5)
     else:
-        lista.mostrar()
         lista.Size()
         ListaDoble.imagen_dot(lista)
         input()

@@ -2,6 +2,7 @@ import os, sys, time
 from lista_doble.nodo import Nodo
 from graphviz import Digraph
 
+
 class ListaDoble():
 
     def __init__(self):
@@ -9,6 +10,7 @@ class ListaDoble():
         self.ultimo = None
         self.size = 0
 
+    #Revisamos si tenemos nodos en la lista
     def vacia(self):
         return self.primero == None
 
@@ -27,19 +29,22 @@ class ListaDoble():
                 nodo1.siguiente = aux
                 self.primero = nodo1
                 aux.anterior = nodo1
-                input("Primer IF")
+                print("\nEl contacto se ha agregado exitosamente.")
+                input("\n--> Presione cualquier tecla para continuar...")
                 self.size += 1
                 return
 
-            if lastname < self.primero.siguiente.apellido:
-                nodo1 = Nodo(name, lastname, cel)
-                aux = self.primero.siguiente
-                nodo1.siguiente = aux
-                self.primero.siguiente = nodo1
-                aux.anterior = nodo1
-                input("Primfssfsdfsdfsfdsdfer IF")
-                self.size += 1
-                return
+            if self.primero.siguiente != None:
+                if lastname < self.primero.siguiente.apellido:
+                    nodo1 = Nodo(name, lastname, cel)
+                    aux = self.primero.siguiente
+                    nodo1.siguiente = aux
+                    self.primero.siguiente = nodo1
+                    aux.anterior = nodo1
+                    print("\nEl contacto se ha agregado exitosamente.")
+                    input("\n--> Presione cualquier tecla para continuar...")
+                    self.size += 1
+                    return
 
             #No es mayor a la cabeza ni a la siguiente de la cabeza
             while temp != None:
@@ -49,7 +54,8 @@ class ListaDoble():
                     nodo1.siguiente = aux
                     aux.anterior.siguiente = nodo1
                     nodo1.anterior = aux.anterior
-                    input("Segundo IF")
+                    print("\nEl contacto se ha agregado exitosamente.")
+                    input("\n--> Presione cualquier tecla para continuar...")
                     self.size += 1
                     return
                     
@@ -62,6 +68,7 @@ class ListaDoble():
             input("\n--> Presione cualquier tecla para continuar...")
         self.size += 1
 
+    #Comprobamos que no se repita el número en la lista
     def agregar(self, nombre, apellido, telefono):
         aux = self.primero
         while aux != None:
@@ -73,8 +80,7 @@ class ListaDoble():
 
         self.agregar_fin(nombre, apellido, telefono)
 
-
-    #recorrer la lista de inicio a fin
+    #recorrer la lista
     def mostrar(self):
         aux=self.primero
         while aux:
@@ -83,23 +89,27 @@ class ListaDoble():
             print("Teléfono: " + aux.telefono + "\n")
             aux=aux.siguiente
     
-    def buscar_numero(self):
+    def buscar_numero(self, numero):
         aux = self.primero
-        numero = input("Ingrese el número por buscar: ")
+        
 
         while aux != None:
             if aux.telefono == numero:
                 print("\nNombre: " + aux.nombre)
                 print("Apellido: " + aux.apellido)
                 print("Teléfono: " + aux.telefono + "\n")
+                input("\nPresione cualquier tecla para continuar... ")
                 return True
         
             aux = aux.siguiente
+        print("\nEl número de teléfono no existe...")
+        return False
             
 
     def Size(self):
         print("Cantidad de contactos registrados: " + str(self.size))
 
+    #Imprime la lita enlazada
     def imagen_dot(ListaDoble):
         f = Digraph(format = "png", name = "salida")
         f.attr(size = "8,5")
@@ -112,19 +122,16 @@ class ListaDoble():
             aux=aux.siguiente
         
         f.node('-1', 'Agenda')
-        f.node(str(cont), 'Null')
+        f.node(str(cont), 'Fin Agenda')
         cont = 0
         aux=ListaDoble.primero
-        while aux:
+        while aux:    
             f.edge(str(cont), str(cont - 1 ))
             f.edge(str(cont), str(cont + 1 ))
             cont += 1
             aux = aux.siguiente
 
-
-
         f.render()
         os.system('salida.gv.png')
-        input()
 
-
+        #edge[dir="both"]
